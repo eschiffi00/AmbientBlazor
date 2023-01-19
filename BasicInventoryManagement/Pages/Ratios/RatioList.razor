@@ -1,0 +1,30 @@
+﻿@page "/ratios"
+@inject NavigationManager NavigationManager
+
+<h3>RatioList</h3>
+<br />
+
+<SearchRatio OnSearchRatio="OnSearch">
+</SearchRatio>
+
+<br />
+<List SearchTerm="@searchTerm"></List>
+
+<br />
+
+<button type="button" class="btn btn-primary" @onclick="CreateRatio">Add Ratio</button>
+
+@code {
+    private string searchTerm = string.Empty;
+
+    private void OnSearch(string searchTerm)
+    {
+        this.searchTerm = searchTerm;
+    }
+
+    private void CreateRatio()
+    {
+        NavigationManager.NavigateTo("/CreateRatio");
+    }
+
+}

@@ -1,0 +1,29 @@
+﻿@page "/"
+@using BusinessLogicLibrary.BusinessLogic.Ratios.Interfaces;
+@inject IUpdateRatio UpdateRatio
+
+<PageTitle>Test Page</PageTitle>
+<br />
+
+<ul>
+    @foreach (var item in Ratios)
+    {
+        <li>
+            @item.Id
+        </li>
+    }   
+</ul>
+
+@code {
+
+    private List<Ratio> Ratios = new List<Ratio>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var ratio = new Ratio();
+
+        await UpdateRatio.ExecuteAsync(ratio);
+
+    }
+}
+

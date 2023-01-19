@@ -1,0 +1,31 @@
+﻿@inject NavigationManager NavigationManager
+
+@if(list != null && list.Count > 0)
+{
+    foreach (var item in list)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.ExperienciaBarra</td>
+            <td>@item.EstadoId</td>
+            <td>
+                <button type="button" class="btn btn-light" @onclick="@(() => UpdateRatio(item.Id))">
+                    Edit
+                </button>
+            </td>
+        </tr>
+    }
+}
+
+
+@code {
+
+    [Parameter]
+    public List<Ratio> list { get; set; } = new List<Ratio>();
+
+    private void UpdateRatio(int id)
+    {
+        NavigationManager.NavigateTo($"/UpdateRatio/{id}");
+    }
+
+}

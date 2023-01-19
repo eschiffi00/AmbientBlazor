@@ -1,0 +1,20 @@
+﻿
+<div class="input-group">
+    <input type="text" class="form-control" placeholder="Search ratio" @bind-value="ratioNameToSearch" />
+    <button type="button" class="btn-success input-group-text" @onclick="OnSearch">Search</button>
+</div>
+
+<br />
+
+@code {
+    private string ratioNameToSearch = string.Empty;
+
+    [Parameter]
+    public EventCallback<string> OnSearchRatio { get; set; }
+
+    private void OnSearch()
+    {
+        OnSearchRatio.InvokeAsync(ratioNameToSearch);
+    }
+
+}

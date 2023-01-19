@@ -1,0 +1,40 @@
+﻿@using BusinessLogicLibrary.BusinessLogic.Ratios.Interfaces;
+
+@*<SearchRatio OnSearchRatio="OnSearchRatio">
+
+</SearchRatio>*@
+
+@if (ratios.Count > 0)
+{
+    <div class="search-result">
+        <ul >
+            @foreach(var item in ratios)
+            {
+                <li 
+                    @key="item.Id" 
+                    @onclick="@(async () => { await OnSelectRatio(item);})">
+                    @item.ExperienciaBarra
+                </li>
+            }
+        </ul>
+    </div>
+}
+
+@code {
+    private List<Ratio> ratios = new List<Ratio>();
+
+    [Parameter]
+    public EventCallback<Ratio> OnRatioSelected { get; set; }
+
+    //private async Task OnSearchRatio(string searchTerm)
+    //{
+    //    ratios =  (await View.ExecuteAsync(searchTerm)).ToList();
+    //}
+
+    private async Task OnSelectRatio(Ratio inventory)
+    {
+        ratios.Clear();
+       await OnRatioSelected.InvokeAsync(inventory);        
+    }
+
+}

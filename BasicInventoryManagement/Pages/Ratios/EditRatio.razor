@@ -1,0 +1,69 @@
+﻿@page "/UpdateRatio/{rtId:int}"
+@using BusinessLogicLibrary.BusinessLogic.Ratios.Interfaces;
+
+@inject IGetRatioById GetId
+
+@inject IUpdateRatio UpdateRatio
+
+@inject NavigationManager NavigationManager
+
+<h3>UpdateRatio</h3>
+<br />
+
+<EditForm Model="ratio" OnValidSubmit="SaveRatio">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+    <ValidationSummary></ValidationSummary>
+
+    <div class="form-group">
+        <label for="name">Ratio Id</label>
+        <InputNumber id="Id" @bind-Value="ratio.Id" class="form-control"></InputNumber>
+    </div>
+
+    <div class="form-group">
+        <label for="name">ItemId</label>
+        <InputNumber id="ItemId" @bind-Value="ratio.ItemId" class="form-control"></InputNumber>
+    </div>
+
+    <div class="form-group">
+        <label for="quantity">Experiencia/Barra</label>
+        <InputText id="ExperienciaBarra" @bind-Value="ratio.ExperienciaBarra" class="form-control"></InputText>
+    </div>
+    <div class="form-group">
+        <label for="quantity">Tipo Ratio</label>
+        <InputText id="TipoRatio" @bind-Value="ratio.TipoRatio" class="form-control"></InputText>
+    </div>
+
+    <div class="form-group">
+        <label for="price">Estado</label>
+        <InputNumber id="EstadoId" @bind-Value="ratio.EstadoId" class="form-control"></InputNumber>
+    </div>
+    <br />
+
+    <button type="submit" class="btn btn-success">Save</button>
+    <button type="button" class="btn btn-primary" @onclick="Cancel" >Cancel</button>
+</EditForm>
+
+@code {
+
+    [Parameter]
+    public int rtId { get; set; }
+
+    private Ratio ratio = new Ratio();
+
+    protected override async Task OnParametersSetAsync()
+    {
+        ratio = await GetId.ExecuteAsync(rtId);
+    }
+
+    private async Task SaveRatio()
+    {
+        await UpdateRatio.ExecuteAsync(ratio);
+        NavigationManager.NavigateTo("/inventories");
+    }
+
+    private void Cancel()
+    {
+        NavigationManager.NavigateTo("/inventories");
+    }
+
+}
